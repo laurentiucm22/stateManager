@@ -1,14 +1,24 @@
 import React from "react";
 import { Button } from "@mui/material";
-import { subscribe } from "../../utilities/pubsub";
+import {
+  subscribe,
+  incrementCount,
+  decrementCount,
+} from "../../utilities/pubsub";
 
 const StateManager = () => {
-  const handleTest = () => {
-    subscribe("Increment", () => console.log("Increment"));
+  const handleIncrement = () => {
+    subscribe("Increment", incrementCount());
   };
+
+  const handleDecrement = () => {
+    subscribe("Decrement", decrementCount());
+  };
+
   return (
     <div>
-      <Button onClick={handleTest}>Increment</Button>
+      <Button onClick={handleIncrement}>Increment</Button>
+      <Button onClick={handleDecrement}>Decrement</Button>
     </div>
   );
 };

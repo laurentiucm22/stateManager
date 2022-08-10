@@ -1,9 +1,20 @@
-// let myEvent = {};
-let myEvents = [];
-
 function randomId(number) {
   return Math.floor(Math.random() * number);
 }
+let myEvents = [];
+
+export const globalState = {
+  count: 0,
+};
+
+export const incrementCount = () => {
+  let count = globalState.count++;
+  return count;
+};
+export const decrementCount = () => {
+  let count = globalState.count--;
+  return count;
+};
 
 export const subscribe = (eventName, callBack) => {
   let createSub = {
