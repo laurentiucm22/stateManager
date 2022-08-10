@@ -1,26 +1,21 @@
-import React from "react";
-import { Button } from "@mui/material";
-import {
-  subscribe,
-  incrementCount,
-  decrementCount,
-} from "../../utilities/pubsub";
+import { useEffect, useState } from "react";
+
+import { subscribe, publisher, getState } from "../../utilities/pubsub";
 
 const StateManager = () => {
-  const handleIncrement = () => {
-    subscribe("Increment", incrementCount());
+  const [state, setState] = useState(getState().count);
+  console.log(state);
+  const callback = (newState) => {
+    return setState(newState);
   };
 
-  const handleDecrement = () => {
-    subscribe("Decrement", decrementCount());
+  useEffect(() => subscribe("counter", callback));
+
+  const handleClick = (direction) => {
+    publisher("counter", state, direction);
   };
 
-  return (
-    <div>
-      <Button onClick={handleIncrement}>Increment</Button>
-      <Button onClick={handleDecrement}>Decrement</Button>
-    </div>
-  );
+  return [handleClick];
 };
 
 export default StateManager;

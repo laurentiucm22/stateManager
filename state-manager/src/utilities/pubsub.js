@@ -1,47 +1,26 @@
-function randomId(number) {
-  return Math.floor(Math.random() * number);
-}
-let myEvents = [];
+let newState;
 
+let myEvent = {
+  counter: [],
+};
 export const globalState = {
   count: 0,
 };
 
-export const incrementCount = () => {
-  let count = globalState.count++;
-  return count;
-};
-export const decrementCount = () => {
-  let count = globalState.count--;
-  return count;
-};
+export const getState = () => globalState;
 
 export const subscribe = (eventName, callBack) => {
-  let createSub = {
-    id: randomId(10),
-    name: eventName,
-    callBack: callBack,
-  };
-  myEvents.push(createSub);
-  console.log(myEvents);
+  myEvent[eventName] = myEvent[eventName] ? myEvent[eventName] : [];
+  myEvent[eventName].push(callBack);
 };
 
-export const publisher = (eventName) => {
-  myEvents[eventName].forEach((callBack) => callBack());
-  // the callBack(newState);
+export const publisher = (eventName, state, direction) => {
+  newState = changeCount(state, direction);
+  myEvent[eventName].forEach((callBack) => callBack(newState));
 };
-// It's not working anymore
 
-// export const subscribe = (eventName, callBack) => {
-//   myEvent[eventName] = myEvent[eventName] ? myEvent[eventName] : [];
-//   myEvent[eventName].push(callBack);
-//   console.log(myEvent);
-// };
-
-// export const unsubscribe = (eventName, callBack) => {
-//   myEvent[eventName] = myEvent[eventName] ? myEvent[eventName] : [];
-//   myEvent[eventName].pop(callBack);
-// };
-
-//In momentul in care dam subscriem, observ datele
-//
+const changeCount = (state, direction) => {
+  if (direction === "increase") return state + 1;
+  if (direction === "decrease") return state - 1;
+  console.log(state);
+};
