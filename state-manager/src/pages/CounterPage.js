@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import Counter from "../components/Counter";
+import React from "react";
+import Counter from "../components/Counter/Counter";
 import { Box } from "@mui/material";
 
 const CounterPage = () => {
-  const [counter, setCounter] = useState(0);
+  // const [state, setState] = useState(0);
 
   return (
     <Box
@@ -16,7 +16,7 @@ const CounterPage = () => {
         backgroundColor: "#131313",
       }}
     >
-      <Counter counter={counter} setCounter={setCounter} />
+      <Counter />
     </Box>
   );
 };
