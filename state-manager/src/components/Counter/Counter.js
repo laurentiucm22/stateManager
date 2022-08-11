@@ -1,24 +1,11 @@
 import { Box } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { getState, subscribe, unsubscribe } from "../../utilities/pubsub";
+import React from "react";
 import classes from "./Counter.module.css";
 import StateManager from "../StateManager/stateManager";
+import { useCustomState } from "../../CustomHook/CustomHook";
 
 const Counter = () => {
-  const [state, setState] = useState(getState().count);
-
-  const callback = (newState) => {
-    console.log(newState);
-    return setState(newState);
-  };
-
-  useEffect(() => {
-    subscribe("counter", callback);
-  }, []);
-
-  useEffect(() => {
-    return () => unsubscribe("counter", callback);
-  }, []);
+  const state = useCustomState();
 
   return (
     <React.Fragment>

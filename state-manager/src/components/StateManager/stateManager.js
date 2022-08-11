@@ -1,26 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
-import {
-  subscribe,
-  publisher,
-  getState,
-  unsubscribe,
-} from "../../utilities/pubsub";
+import { publisher } from "../../utilities/pubsub";
+import { useCustomState } from "../../CustomHook/CustomHook";
 
 const StateManager = () => {
-  const [state, setState] = useState(getState().count);
-
-  const callback = (newState) => {
-    return setState(newState);
-  };
-  useEffect(() => {
-    subscribe("counter", callback);
-  }, []);
-
-  useEffect(() => {
-    return () => unsubscribe("counter", callback);
-  }, []);
+  const state = useCustomState();
 
   const handleClick = (direction) => {
     publisher("counter", state, direction);
