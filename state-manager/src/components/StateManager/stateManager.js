@@ -1,5 +1,4 @@
 import React from "react";
-import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import { publisher } from "../../utilities/pubsub";
 import { useCustomState } from "../../CustomHook/CustomHook";
@@ -27,7 +26,6 @@ const StateManager = () => {
       >
         Increment
       </Button>
-      <Typography paragraph={true}>{state}</Typography>
       <Button
         variant="contained"
         size="large"

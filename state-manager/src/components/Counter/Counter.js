@@ -22,7 +22,7 @@ const Counter = () => {
           boxShadow: "0px 0px 10px #fff",
         }}
       >
-        <h2 className={`${classes["counter_title"]}`}>Play with me</h2>
+        <h2 className={`${classes["counter_title"]}`}>Counter</h2>
         <p className={`${classes["counter_value"]}`}>{state}</p>
         <Box
           sx={{

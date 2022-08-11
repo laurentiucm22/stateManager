@@ -10,7 +10,6 @@ export const useCustomState = () => {
 
   useEffect(() => {
     subscribe("counter", callback);
-
     return () => unsubscribe("counter", callback);
   }, []);
 
