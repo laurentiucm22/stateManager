@@ -3,6 +3,7 @@ let newState;
 let myEvent = {
   counter: [],
 };
+
 export const globalState = {
   count: 0,
 };
@@ -19,8 +20,12 @@ export const publisher = (eventName, state, direction) => {
   myEvent[eventName].forEach((callBack) => callBack(newState));
 };
 
+export const unsubscribe = (eventName, callBack) => {
+  myEvent[eventName] = myEvent[eventName] ? myEvent[eventName] : [];
+  myEvent[eventName].pop(callBack);
+};
+
 const changeCount = (state, direction) => {
   if (direction === "increase") return state + 1;
   if (direction === "decrease") return state - 1;
-  console.log(state);
 };

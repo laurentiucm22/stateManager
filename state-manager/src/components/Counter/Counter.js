@@ -1,24 +1,25 @@
-import { Button, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { getState, publisher, subscribe } from "../../utilities/pubsub";
+import { getState, subscribe, unsubscribe } from "../../utilities/pubsub";
 import classes from "./Counter.module.css";
-// import { handleClick } from "../StateManager/stateManager";
+import StateManager from "../StateManager/stateManager";
 
 const Counter = () => {
   const [state, setState] = useState(getState().count);
 
   const callback = (newState) => {
+    console.log(newState);
     return setState(newState);
   };
 
   useEffect(() => {
     subscribe("counter", callback);
-  });
-  const handleClick = (direction) => {
-    publisher("counter", state, direction);
-  };
+  }, []);
 
-  console.log(state);
+  useEffect(() => {
+    return () => unsubscribe("counter", callback);
+  }, []);
+
   return (
     <React.Fragment>
       <Box
@@ -28,10 +29,10 @@ const Counter = () => {
           flexDirection: "column",
           alignItems: "center",
           borderRadius: "1rem",
-          border: "1px solid white",
           color: "white",
           padding: "2rem 5rem",
           backgroundColor: "secondary.main",
+          boxShadow: "0px 0px 10px #fff",
         }}
       >
         <h2 className={`${classes["counter_title"]}`}>Play with me</h2>
@@ -43,29 +44,7 @@ const Counter = () => {
             width: "100%",
           }}
         >
-          <Button
-            className={`${classes["counter_btn"]}`}
-            variant="contained"
-            size="large"
-            sx={{
-              marginRight: "20px",
-              border: "1px solid #fff",
-              padding: "0.3rem 1.4rem",
-            }}
-            onClick={() => handleClick("increase")}
-          >
-            Increment
-          </Button>
-          <Button
-            variant="contained"
-            size="large"
-            sx={{
-              border: "1px solid #fff",
-            }}
-            onClick={() => handleClick("decrease")}
-          >
-            Decrement
-          </Button>
+          <StateManager />
         </Box>
       </Box>
     </React.Fragment>

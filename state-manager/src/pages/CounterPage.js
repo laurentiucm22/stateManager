@@ -3,8 +3,6 @@ import Counter from "../components/Counter/Counter";
 import { Box } from "@mui/material";
 
 const CounterPage = () => {
-  // const [state, setState] = useState(0);
-
   return (
     <Box
       sx={{
